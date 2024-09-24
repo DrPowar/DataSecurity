@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DataSecurity.ViewModels"
+             x:Class="DataSecurity.Pages.RegisterPage"
+             x:DataType="vm:RegisterViewModel"
+             Background="#f6f9ff">
+
+    <FlexLayout Background="#f6f9ff" JustifyContent="Center" Padding="20">
+        <Border StrokeShape="RoundRectangle 8" Stroke="#1c2537" Background="#cdd6ee" HorizontalOptions="Center" VerticalOptions="Center" StrokeThickness="0.6">
+            <VerticalStackLayout Spacing="15" Margin="40" HorizontalOptions="Center">
+
+            <Entry Placeholder="Enter your first name" 
+                   Text="{Binding Name}" 
+                   Background="#f6f9ff"
+                   HorizontalOptions="FillAndExpand" />
+
+            <Entry Placeholder="Enter your password" 
+                   Text="{Binding Password}" 
+                   IsPassword="True" 
+                   Background="#f6f9ff"
+                   HorizontalOptions="FillAndExpand" />
+
+            <Button Text="Register" 
+                    Command="{Binding RegisterCommand}" 
+                    HorizontalOptions="FillAndExpand"
+                    Background="#20293b"
+                    TextColor="White" />
+
+            <Label Text="Already have an account?" 
+                   HorizontalOptions="Center" />
+
+            <Label IsVisible="{Binding ShowErrorMessage}" TextColor="Red" />
+
+            <Button Text="Log in here" 
+                    Command="{Binding NavigateToLogInCommand}"
+                    HorizontalOptions="Center" 
+                    BackgroundColor="Transparent" 
+                    TextColor="Blue" />
+            </VerticalStackLayout>
+        </Border>
+    </FlexLayout>
+
+</ContentPage>

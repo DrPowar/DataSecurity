@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DataSecurity.ViewModels"
+             x:Class="DataSecurity.Pages.MainPage"
+             x:DataType="vm:MainViewModel"
+             xmlns:models="clr-namespace:DataSecurity.Models"
+             Background="#f6f9ff">
+
+    <FlexLayout Background="#f6f9ff" JustifyContent="Center" Padding="20">
+        <VerticalStackLayout Spacing="15" HorizontalOptions="Center" Margin="50">
+            <CollectionView ItemsSource="{Binding People}"  Margin="0,20,0,20">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:Person}">
+                        <Border Stroke="#1c2537" StrokeShape="RoundRectangle 4" Margin="5" StrokeThickness="0.5" Background="#cdd6ee">
+                            <StackLayout Orientation="Horizontal" Spacing="15" Padding="10">
+
+                                <Label Text="{Binding Name}" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+
+                                <Label Text="{Binding Role.Name}" VerticalOptions="Center" HorizontalOptions="Start"/>
+
+                                <HorizontalStackLayout VerticalOptions="Center">
+                                    <Label Text="Is blocked: "/>
+                                    <Label Text="{Binding IsBlocked}"/>
+                                </HorizontalStackLayout>
+
+                                <Button Text="Block" 
+                                        IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=IsAdmin}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=BlockUserCommand}" 
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="Red" 
+                                        TextColor="White" 
+                                        HorizontalOptions="EndAndExpand" />
+                            </StackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Register New User"
+                    IsVisible="{Binding IsAdmin}"
+                    Command="{Binding NavigateToRegisterCommand}"
+                    HorizontalOptions="Center"
+                    Background="#20293b"
+                    TextColor="White" />
+
+            <Button Text="Change Password"
+                    Command="{Binding NavigateToChangePasswordCommand}"
+                    HorizontalOptions="Center"
+                    Background="#20293b"
+                    TextColor="White" />
+
+            <Button Text="Turn off feature (Password without repetition)"
+                    IsVisible="{Binding IsAdmin}"
+                    Command="{Binding SwitchSpecialFeatureCommand}"
+                    HorizontalOptions="Center"
+                    Background="#20293b"
+                    TextColor="White" />
+        </VerticalStackLayout>
+    </FlexLayout>
+</ContentPage>
